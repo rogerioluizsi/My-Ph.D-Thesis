@@ -1,0 +1,16 @@
+\section{Score-based explanations}
+\label{sec:scores}
+
+A standard single metric of feature importance is the coefficients of additive models such as linear and logistic regressions. This coefficient represents the weight of each feature in the additive function, which describes the relationship among features and outcomes. However, for generalized linear models (GLM), which involve transformations of this linear predictor into other discrete outcomes, such as logistic regressions, the coefficient interpretability is not straightforward. Moreover, the coefficients are highly sensitive to unobserved heterogeneity and data scale (Mood, 2017). 
+
+To circumvent these limitations, marginal effects (MEs) have long been proposed (Long `I\&' Long, 1997) in the traditional statistical literature. MEs use the prediction function to calculate the differences in probabilities of the outcome when the features partially change from one specified value to another. However, MEs fail to isolate the feature effect when data are correlated. This problem arises when the computation of the feature effect uses conditional distribution. Thus, since correlated features move in tandem, it is unable to distinguish which feature value changes influence the model probabilities.
+
+For black-box models however, the permutation feature importance (PFI) derived from tree-based algorithms is a standard single metric used to report feature contribution in classification problems and is widely used in the education domain. However, this kind of metric is linked to model error, which cannot be a metric of interest for analysts. Furthermore, it does not report the direction of the feature effect, which may be critical for actionable research. Recently, SHapley Additive exPlanations (SHAP) (Lundberg `I\&' Lee, 2017) have been pointed out as the most common explainability technique in organizations (Bhatt et al., 2020). This technique uses game theory (Shapley Values) to measure the contribution of each data point to each feature value. Thus, it can deliver explanations in fine grain, and by means of the average, report the global feature contributions, including their direction. Unfortunately, calculating the exact Shapley value is computationally expensive(Molnar, 2019), and several approximations have been proposed (Bhatt et al., 2019). 
+
+Moreover, both PFI and SHAP are permutation-based techniques, and so, they are able to randomly sample from the marginal distribution considering unrealistic data points that are not present on training data. Therefore, they extrapolate in areas where the model was trained with either little or no training data, which may cause misleading explanations(Hooker `I\&' Mentch, 2019).
+
+In an attempt to fix the extrapolation problem, Molnar (ref) proposed the conditional PMI (C-PFI) that grows a tree using the variable of interest as target to compute within the tree leaves the traditional PFI. The author claims that the tree splits turns the data points within leaves independent regarding the variable of interest independent regarding the remain variables within leaves avoiding extrapolation. The PFI leaves  
+permutation. This process yields individual leaves PFI measure  which is weighted averaged afterwards to produce a unique score. 
+
+
+

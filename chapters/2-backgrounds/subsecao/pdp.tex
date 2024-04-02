@@ -1,0 +1,16 @@
+\subsubsection{PD Plots and Scores}
+\label{subpdp}
+
+The PD plots serve as a graphical representation that quantifies the effect of specific features on the predicted outcome within a supervised learning model while holding other variables constant (\textit{ceteris paribus}). These plots offer insights into the average marginal contribution of a feature of interest $x_s$ to the model's prediction, with the remaining features $X_c$ held constant. By doing so, PDs allow a causal interpretation of the role of $x_s$ in the predictive model if data meets the independence assumption \cite{Zhao2021CausalModels}. The underlying function can be mathematically described as follows:
+
+\begin{equation}
+PD(x_s)=\frac{1}{n}\sum_{i=1}^{n}f(x_s=j, X^{(i)}_{c})
+\label{pd}
+\end{equation}
+
+where $f(x_s = j, X^{(i)}_{c})$  represents the model's predicted output when the feature  $x_s$ is intervened upon to assume a specific value $j$, while the remaining features $X_{i_{c}}$ are held their observed values in the dataset. The value $j$ is drawn from the marginal distribution of $x_s$. To be plotted, $j$ assumes values within a defined grid of the ordered $x_s$ where \ref{pd} is computed. For categorical features, $j$ assumes each category as a possible value.
+
+A more specific method for estimating PD is utilizing Individual Conditional Expectation (ICE) curves. ICE curves \cite{Goldstein2015PeekingExpectation} provide a distinct curve $PD(x_s)$ for each individual data point $i$ in the sample. Essentially, the PD is computed as the average of these ICE curves. This granular decomposition facilitated by ICE allows for identifying potential interaction effects between $x_s$ and the remaining features $X_c$ at global level, which may not be observed when solely relying on PDs. 
+
+In an attempt to yield scores from PD, \cite{Greenwell2018AMeasure} proposed a simple score considering that a feature's importance is inversely related to the flatness of its PD Plot; a flatter PDP suggests lesser importance, while greater variation in the PDP indicates higher significance. Ass PD ignores feature relationships, this PD-based score captures only the main effect of the feature and ignores potential feature interactions
+

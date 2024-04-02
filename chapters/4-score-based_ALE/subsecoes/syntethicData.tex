@@ -1,0 +1,30 @@
+\subsection{Synthetic data}
+
+Simple scenarios were set where is easier to identify differences in the metrics behavior. Especially, considering a set of variables \(X\) drawn from the same normal distribution \(N(0, 1)\) with values ranging between zero and 1 and \(\varepsilon\) following \(N(0, 0.1^2)\) as well as a  dependence between variables pairs $M$ plus noise \(N(0, 0.05^2)\) (ex.:\(x_1 = x_2 + \varepsilon\)), diverse scenarios were simulated to explore different dependency structures. Each scenario has 1000 data points and \(Y\) is a function of \(X\) with different dependence pairs \(M\):
+
+\textbf{Scenario 1}: \(X\) is matrix of size 5, \(Y\) depends only on \(x_1\): \(Y= x_1 +  \varepsilon\) and \(M\) maps a strong dependence between \(x_1, x_2\), being the all the other variables independent
+
+\textbf{Scenario 2}:  \(X\) is matrix of size 5, \(Y\) depends only on \(x_1\): \(Y= x_1 +  \varepsilon\) and \(M\) maps a strong dependence between \(x_1, x_2\); \(x_2, x_3\); \(x_4, x_1\), being only \(x_5\) independent
+
+\textbf{Scenario 3}:  \(X\) is matrix of size 5, \(Y\) depends on \(x_1\) and \(x_2\): \(Y= x_1 + x_2 + \varepsilon\) and \(M\) maps a strong dependence between \(x_1, x_2\) ;\(x_2, x_3\); \(x_4, x_1\), being only \(x_5\) independent
+
+\textbf{Scenario 4}:  \(X\) is matrix of size 5 \(Y\) depends on \(x_1\): \(Y = x_1\)  and \(M\) maps the Pearson correlation \(p\) being \(0.5 \leq p < 1.0
+\) among all variables. 
+
+\textbf{Scenario 5}:  \(X\) is matrix of size 5 \(Y\) depends equally on \(x_1\), \(x_2\) and \(x_3\): \(Y = x_1 + x_2 + x_3\)  and \(M\) is defined by \(coor\) being \(0.5 \leq coor < 1.0
+\).  The variable \(coor\) controls that extent of the correlation among variables through: \(X_1 = corr \times X_2 + corr \times \varepsilon\)
+and \(X_3 = corr \times X_1 + corr \times \varepsilon\) 
+
+\textbf{Scenario 6}: \(X\) is a matrix of size 10 . The target variable \(Y\) is equally influenced by a set of five relevant variables, denoted as \(G_1 = \{x_1:x_5\}\) and has a weak relation with variables from \(G_2 = \{x_6: x_10\}\). The \(G_1\) are generated with intercorrelation controlled by the parameter \(corr_intra\). The remaining five variables are correlated with \(G_1\) through the \(corr_inter\). Both \(corr_intra\) and \(corr_inter\) will vary from 0.1 to 0.8.
+
+
+
+
+
+
+
+
+
+
+
+

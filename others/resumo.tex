@@ -1,0 +1,26 @@
+
+% resumo em português
+\begin{resumo}[Resumo] 
+Esta tese apresenta um estudo na interseção entre Aprendizado de Máquina (ML) e educação, enfatizando a aplicação de técnicas de Inteligência Artificial Explicável (IAE) em Mineração de Dados Educacionais (MDE). Central para esta pesquisa é o desafio de fornecer explicações globais post-hoc para modelos de ML, especialmente quando a independência dos dados não pode ser assumida, uma questão comum, porém pouco explorada, em MDE. Ignorar interdependências de dados pode enviesar explicações, inflar variáveis irrelevantes ou atribuir desproporcionalmente significância a certos preditores. Para resolver esses desafios, a tese baseia-se em um método recente para a visualização do impacto das variáveis em modelos supervisionados, conhecido em inglês como Accumulated Local Effects (ALE), que se refere à distribuição acumulada de efeitos locais. A propriedade pseudo-ortogonal de ALE permite isolar os efeitos de variáveis individuais, distinguindo-a de métodos amplamente usados em MDE, como os gráficos de dependência parcial e explicações baseadas  em valores de Shapley. Para demonstrar as propriedades de ALE quando comparados com métodos tradicionais, este trabalho introduz uma nova metodologia para avaliação da capacidade de técnicas de IAE em aproximar o real comportamento de variáveis  em diversos contextos de dependência entre dados. Além disso, este trabalho propõe novas métricas baseadas em ALE para a medição do impacto de variáveis em modelos supervisionados. Essas métricas agnósticas a modelos são uma melhoria em relação às técnicas tradicionais, fornecendo percepções mais claras e precisas de como as variáveis afetam os resultados do modelo, incluindo tanto a extensão quanto a direção de seus impactos. A eficácia dessas métricas é demonstrada em conjuntos de dados sintéticos e reais, provando sua efetividade em isolar os efeitos de  variáveis relevantes para as predições dos modelos quando comparada com métricas existentes. Além disso, um estudo empírico utilizando os dados das escolas secundárias brasileiras não apenas ratifica a utilidade das novas métricas em cenários do mundo real, mas também estende as contribuições desta tese ao identificar e oferecer novas perspectivas sobre os determinantes do sucesso escolar brasileiro ao longo de uma década.
+
+% \noindent %- o resumo deve ter apenas 1 parágrafo e sem recuo de texto na primeira linha, essa tag remove o recuo. Não pode haver quebra de linha.
+
+ \vspace{\onelineskip}
+    
+ \noindent
+ \textbf{Palavras-chaves}: IA explicável. Aprendizagem de máquina interpretável.  Explicadores globais. Mineração de dados educacionais. Importância de variáveis. ALE.
+\end{resumo}
+
+%resumo em inglês
+\begin{resumo}[Abstract]
+\begin{otherlanguage*}{english}
+
+ %\noindent
+This thesis presents a study at the intersection of Machine Learning (ML) and education, emphasizing the application of eXplainable Artificial Intelligence (XAI) techniques in Educational Data Mining (EDM). Central to this research is the challenge of providing post-hoc global explanations for ML models, especially when data independence cannot be assumed, a common yet underexplored issue in EDM. Overlooking data interdependencies can bias explanations, inflate irrelevant variables, or disproportionately attribute significance to certain predictors. To address these challenges, this work builds on Accumulated Local Effects (ALE), a recent method for post-hoc global explanation that visualizes the impact of features. ALE's pseudo-orthogonality property allows for isolating individual variable effects, distinguishing it from widely used methods in EDM, such as Partial Dependence (PD) Plots and SHapley Additive Explanations (SHAP). To showcase ALE's properties, this work introduces a new evaluation methodology to rigorously assess ALE's ability against established methods in approximating the true behavior of features across various data dependency contexts. Furthermore, this work proposes new metrics based on ALE, aimed at measuring feature impact sizes. These model-agnostic metrics are an improvement over traditional explanation scores, as they provide clearer and more accurate insights into how features affect model outcomes, including the extent and direction of their impacts. The efficacy of these metrics is demonstrated through comprehensive validation on both synthetic and real datasets, proving their effectiveness in isolating key variable effects compared to existing scores. Furthermore, the application of these metrics in an empirical study within Brazilian secondary schools not only underscores their practicality in real-world scenarios but also extends the contributions of this thesis by offering new perspectives on the determinants of educational outcomes in Brazilian secondary schools over a decade.
+
+\vspace{\onelineskip} 
+
+\noindent 
+\textbf{Keywords}: Explaineble AI. Interpretable ML.  Global explainers. EDM. Feature importance. ALE.
+\end{otherlanguage*}
+\end{resumo}

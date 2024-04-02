@@ -1,0 +1,14 @@
+\subsubsection{PFI scores}
+
+PFI is a model-agnostic metric used to evaluate the contribution of each feature to the predictive power of a trained ML model, \(\hat{f}\). Given a feature matrix \(X\) and a target vector \(y\), the PFI for a particular feature is calculated by measuring the increase in a specified error measure \(L(y, \hat{f})\) when the values of that feature are randomly permuted.
+
+Let \(\hat{f}: X \rightarrow Y\) be the trained model, where \(X \in \mathbb{R}^{n \times p}\) is the feature matrix with \(n\) samples and \(p\) features, and \(Y\) is the target space. The error measure \(L(y, \hat{f})\) quantifies the discrepancy between the predicted and true target values. The PFI of a given feature \(x_i\) is defined as follows:
+
+\begin{equation}
+\text{PFI}(x_i) = E\left[ L(y, \hat{f}(X)) - L\left(y, \hat{f}(X_{\text{-}i, \text{perm}})\right) \right]
+\end{equation}
+
+Here, \(X_{\text{-}i, \text{perm}}\) denotes the feature matrix \(X\) where the \(i\)-th feature column has been permuted randomly. The expectation \(E[\cdot]\) is taken over multiple permutations to obtain a stable estimate.
+
+A higher PFI value for a feature indicates a greater contribution to the model's predictive capability. Conversely, a low or negative PFI suggests that the feature may be irrelevant or even detrimental to the model's performance. Usually, the PFI values are normalized to be ranked. Typically, PFI values are normalized and sorted such that they sim to one, to facilitate comparative ranking among the features. 
+

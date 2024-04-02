@@ -1,0 +1,17 @@
+\subsection{Background and data source}
+
+The National Secondary School Exam (ENEM) was conceived to assess the quality of Brazilian secondary schools based on a student evaluation of the test. In 2009, it was reframed to the Item Response Theory, thereby making it comparable over time. The ENEM was established as the mechanism for student admission to higher education. Hence, the ENEM has become a reliable, rich data source regarding the Brazilian secondary system. The ENEM microdata contains student socio-economic-cultural information and their grades achieved in the test. Together with the national school census (CE), which details the conditions of Brazilian schools, from physical infrastructure to faculty information, they build a robust, extensive database of Brazilian secondary education. Both databases were publicly available on the INEP website\footnote{  https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados}. The period covered is from 2009 to 2019. The dataset refers to over 40 million students in thousands of schools across the country. However, only students in the last year of public secondary education were considered. 
+
+As the school “ID” is the primary key in combining the ENEM and school census datasets, all students who did not attend schools that were identified to be in the survey across years were removed. This led to a large decrease of about 80\% of the dataset. Additionally, the following criteria defined the scope.
+
+\begin{enumerate}
+\item Students were not included if they were not in the last year of municipal or state public secondary schools..
+\item Students were not included if they did not follow a regular curriculum
+\item As a double-check, students not in the most probable age range meeting criteria 1 and 2 (17-19 years old) were also eliminated.
+\item In order to obtain a critical mass, only schools with ten or more students were selected..
+\item To ensure that all schools had at least a minimum infrastructure to function, schools with no electric energy, sanitation, or piped water were excluded.
+\end{enumerate}
+
+
+
+

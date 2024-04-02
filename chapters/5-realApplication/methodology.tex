@@ -1,0 +1,25 @@
+\section{Methodology}
+
+To effectively report the trends in how contextual features predict LSA outcomes, the educational production function framework \cite{bowles1970towards} and repeated cross-sectional analysis \cite{Buck1995ChoosingIssues} were utilized.
+
+
+To effectively report the trends in how contextual features predict LSA outcomes, this chapter utilizes the educational production function framework \cite{bowles1970towards} and conducted a repeated cross-sectional analysis \cite{Buck1995ChoosingIssues}. This analysis was guided by the well-established Cross-Industry Standard Process for Data Mining (CRISP-DM) \cite{chapman1999cross}and complemented by the Domain-Driven Data Mining (D$^3$M) approach \cite{Cao2005DomainMethodology, Cao2009IntroductionMining}. This process involves multiple phases integral to the. Here, domain knowledge plays a pivotal role throughout, ensuring that the models developed are not only statistically sound with a good predictive performance, but also actionable and relevant in real-world applications.
+
+\begin{figure}[ht!]
+\centering
+\caption{\textmd{The case-study methodology}}
+\label{fig:process}
+\fcolorbox{gray}{white}{\includegraphics[width=0.9\textwidth]{images/realApplication/framework.jpg}}
+\par\medskip\ABNTEXfontereduzida\selectfont\textbf{source: self-provided} \par\medskip
+\end{figure}
+
+Figure \ref{fig:process} outlines the case-study methodology. Specifically, consider a dataset \( D = [d_1, \ldots, d_k] \) with contextual features \( X = [x_1, \ldots, x_S] \in \mathbb{R}^{S \times K} \), where \( K \) represents the number of time steps (LSA waves), and \( S \) is the number of features. The data preprocessing step involves standardizing \( D \) across \( K \) to ensure uniform meaning and measurement for \( X \). In the modeling step, a compact set of predictive functions \( F = [f_1, \ldots, f_S] \), where each \( f(X) = Y \) and \( Y = {0,1} \in \mathbb{R}^K \), is constructed and applied sequentially. Let \( x_{i,k} \) denote the input feature \( i \) at time \( K \), and \( X_{i,:} \in \mathbb{R}^K \) be an independent time vector of feature \( i \). The most effective models in \( F \) during the evaluation step, for each feature vector at time \( K \) (\( X_{:,k} \in \mathbb{R}^S \)), will yield a corresponding vector of scores in the explanation step. The reporting step culminates in a score matrix \( M \) of dimensions \( S \times K \times F \), offering valuable insights into the dataset. Incorporating diverse model types in \( F \) can enhance understanding of the data generating process.
+
+In general, the comparison of feature relevance from different models, even with the same metric, may be inappropriate and requires caution \cite{Fisher2018AllSimultaneously}. Important variables for one well-performing model may be unimportant for another model. On the other hand, this practice may help to make the analysis even more insightful if combined with domain knowledge as defined in \cite{SilvaFilho2023AAchievement} as "Rashomon" set analysis.
+
+
+\input{chapters/5-realApplication/subSecoes/data.tex}
+\input{chapters/5-realApplication/subSecoes/preprocessing}
+
+
+

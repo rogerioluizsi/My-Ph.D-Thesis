@@ -1,0 +1,82 @@
+\chapter{Conclusion}
+\label{chap: conclusion}
+
+This chapter presents the concluding remarks of this thesis, emphasizing its contribution to the field of EDM within the realm of XAI and supervised learning. Moreover, this chapter delineated the inherent limitations encountered during the research and discussed a few themes that future works should focus on.
+
+\section{Concluding Remarks}
+
+The exploration of educational data by using ML is an under-explored area with many opportunities of research. The recent volume of data collection allow the easy application of novelties of ML that is flexible enough to fit the complex educational data relationships. It also present challenges, such as the need of more adequate model interpretations to keep data analysis as the paramount tool for driving educational interventions and the evaluation of educational policies.  
+
+The objective of this thesis is to propose using a more robust technique to derive global explanations in the context of educational data mining. This is particularly pertinent given the growing importance of such studies, which are increasingly relying on supervised learning and XAI for identifying relevant predictor variables and determining the size of their effects on target variables.
+
+A thorough literature review revealed that conventional methods in EDM employed for this purpose exhibit notable limitations in interpretability when applied to dependent data - a common scenario in the educational context, and the main motivation to the use of ML models. 
+
+The problem arises from the tendency of these methods to "extrapolate" existing data relationships when computing the contribution of variables within a predictive function. Additionally, existing used techniques are not aligned with the main objective of educational practitioners when analyzing effect size on statistical analysis since they are often focused on the variable´s role in model performance instead of model predictions.
+
+Witin this context, this thesis goes to this problem formulating two main research questions:
+
+RQ1 - How do widely used feature effects techniques compare with ALE in accurately identifying true feature effects considering different inter-data dependencies?
+
+RQ2 - How effectively can score-based explanations derived from the ALE framework report individual and isolated attribution of the features in terms of their magnitude and direction compared to existing methods?
+
+In response to RQ1, Chapter 3 benchmarked the most used explainable techniques on EDM and ALE, a recent contribution of XAI that employes some constraints to avoid data extrapolation. The benchmarking indentify ALE as the most suitable technique to report features effects when features are correlated. Building on this finding, Chapter 4 answer RQ2 by proposing a set of ALE-based metrics to enhance the clarity and utility of the supervised model explanations focused on overall variables effect size. Chapter 5 then demonstrated the practical application of these metrics in a real-world educational context.
+
+\subsection{Summary of Contributions}
+
+\subsubsection{A benchmarking of feature effects techniques}
+
+Answering RQ1 and aiming to provide empirical evidence regarding the robustness of ALE as compared to baseline methods in dependent data, a benchmarking of the feature effect technique was established. To the best of our knowledge, this is the first quantitative comparison of the accuracy of PD plots and ALE against a ground truth. Also, other techniques widely used in literature (ME) and (SHAP) were included, enhancing the benchmarking for a broader comparison. A new comparison metric, the ABX, was introduced to measure the area between the true and explained features.
+
+The ALE outperformed in accurately recovering the feature effects in all scenarios under dependent data. Also, the experiments highlight the potential risk of explaining highly flexible algorithms, such as neural networks, using techniques that extrapolate the manifold even on independent datasets. This phenomenon is already known and has also been simulated in this thesis (Chapter \ref{chapter4}, Figure \ref{fig:edu_data}, but, to our knowledge, it has not yet been identified in empirical experimentation. These results may aid the explainable AI field, which can use the benchmarking framework as well for applied researchers, especially on EDM, that could identify the pitfalls of the most currently used XAI techniques to derive insights about the data.
+
+\subsubsection{New scores of feature effects size}
+
+Motivated by the robustness of ALE and the limitations of existing scores of feature importance, this contribution introduces four new model-agnostic measures of variable effect size based on ALE. These measures are designed for enhanced interpretability of feature roles in predictions, especially in scenarios involving dependent data. Three of these metrics offer distinct single-explanation perspectives, elucidating the extent and direction of feature effects in relation to the target variables. Each metric presents a unique interpretation, adding depth to the understanding of feature influence. The fourth metric offers a normalized ranking of feature impact, facilitating their comparison across different datasets and models. 
+
+In evaluations, these features exhibit similar or superior performance compared to existing metrics in the XAI literature, proving effective in identifying key variables in both synthetic and real datasets. The metrics can be employed either in cross-validation settings for more robust estimates or bootstrap, allowing yield confident intervals to account for variability and uncertainty inherent to the data and the model.
+
+Calculating scores using ALE introduces specific limitations inherent to model-agnostic methods. The generalizability of the results largely depends on how representative the sample is of the population. Furthermore, an important aspect of ALE is its computation by segments rather than analyzing the entire dataset at once. As a result, it is necessary to consider the actual data sample used along with how each provided metric is computed for an appropriate interpretation and generalization of the explanation outputs. Despite this limitation, the local nature of ALE has partial benefits for the purpose of the metrics. The ALE ensures that explanations remain faithful to the relationships in the data. Additionally, ALE enables the computation of the isolated variable effects and their interactions within this interval.
+
+However, relying solely on one score to represent the entire distribution produced by the ALE function may be problematic and conceal important aspects of the shape of variable effects, especially in cases where they are noisy or have been calculated based on a limited number of data points. Following the ALE limitation, the metrics cannot also be computed for categorical variables without order relation. Finally, although ALE permits the computation of interaction effects, which have also been defined in the context of scores in this thesis, the empirical experimentation focused solely on assessing them by computing the main effects of feature size.
+
+\subsubsection{A empirical trend analysis of Brazilian secondary schools determinants}
+
+To demonstrate the usefulness and the meaningful of the proposed scores in the exploration of educational data, an empirical case study was presented. The real scenario seeks to identify and track the determinants of Brazilian public education from 2009 to 2019. To the best of our knowledge, we are the first to explore the impact of contextual features on educational outcomes through supervised learning over time. Previous studies have handled this problem only at a single point in time. While \cite{Franco2020UsandoAnos} used multiple years of ENEM data in Brazil to conduct similar research, their work did not aim to make results comparable, which does not allow for tracking the feature effects size over time.
+
+Moreover, the defined process is also a contribution of this thesis to researchers interested in conducting repeated cross-sectional analysis using supervised learning. The process is flexible enough to be applied to any domain. 
+
+The findings of this case study also provided valuable new insights for researchers interested in Brazilian secondary education. Lastly, it should be noted that the preprocessed and standardized data used in this analysis is an additional contribution of this thesis and is available \cite{SilvaFilho2022EnemCensus2009-2019} for other researchers interested in the quantitative analysis of Brazilian secondary education.
+  
+
+\section{Future Works}
+
+As the use of ML increases, so does the demand for interpretability, making XAI a rapidly growing field with numerous new interpretation methods being introduced. In this thesis, rather than developing a new method, the focus is on applying an established method (ALE) to the context of reporting global feature contributions in the educational domain. This approach aims to deepen and extend our understanding of its potential to enhance the interpretability of educational models.
+
+The contribution of this thesis can be improved and further explored in future works. For instance, the benchmarking process of Chapter \ref{chap:AssALE} could be expanded to include more algorithms as well as a wider range of data scenarios, including the presence of outliers and missing values. Similarly, these variations could be applied to the evaluation of the new metrics of Chapter 4. Specifically, while the potential of these metrics as a feature selection method was presented, detailed scrutiny was beyond the scope of this thesis. Consequently, there remains a need for empirical evidence to establish their effectiveness fully in this direction.
+
+Moreover, from a broader perspective, by concentrating on using XAI in EDM to obtain global explanations, I believe that investigating the following related topics could substantially advance the field. 
+
+\subsection{True to the model, true to the data, and true to the context}
+
+A central challenge in explainable methods lies in balancing fidelity to the model and the data. This tension forms a core part of this thesis's motivation. Overemphasis on the model can lead to unreliable explanations due to neglect of data relationships. Conversely, focusing solely on data may preclude leveraging complex functions that fit the data ALE have emerged as a promising solution to this dilemma, especially in the context of supervised learning for knowledge extraction from data. However, we argue there is another perspective that new XAI techniques must be aware of in education: the context perspective.
+
+Contextual understanding involves comprehending how features semantically affect observations. While ALE and other global techniques effectively identify varying feature effects across their value range, there is limited exploration in contextualizing which observations correspond to each feature value. A potential breakthrough could be a technique that uncovers heterogeneous feature effects, pinpointing relevant groups based on their distinct responses to a feature within the model. This approach aligns with the existing literature on model fairness in EDM, which aims to identify the poor performance of ML models in sensitive groups. Viewing it through the lens of XAI at the feature level could significantly enhance the utility of EDM in providing valuable insights from educational data
+
+\subsection{Data dependence is the real world}
+
+Historically, traditional linear models have been the most widely used method for extracting knowledge from data in the education domain. When specifying these models, the interpretation of coefficients is seen as the effect of a variable on the dependent variable. This perspective has guided researchers in supervised learning, with the primary aim of harnessing ML's powerful pattern recognition capabilities while maintaining a level of interpretability that tries to mimic traditional statistical models. Within this context, this thesis endeavors to introduce alternatives that better address the complexity of data dependence on educational datasets, dealing with the trade-off between being true to the data and true to the model.
+
+However, a different approach to dealing with data dependence, treating it as an inherent part of the ML paradigm and also from the real world, can extend the meaningfulness of XAI in EDM. ML is inherently associative, and this property can be leveraged to gain deeper insights into the data-generating process. Instead of focusing solely on isolating the effects of individual features or their interactions, ML allows researchers to explore the network of relationships within the data. This approach recognizes the complexity and interconnectedness of educational environments as part of the problem. It enables a more holistic view, shifting the focus from measuring isolated feature effects to understanding the network of relationships within the data. For example, this could involve exploring how and when different aspects of the school environment interact with student backgrounds or how policy changes ripple through various layers of the education system.
+
+\subsection{Beyond a one-size-fits-all }
+
+This thesis has established the ALE as a robust XAI technique for reporting global feature contributions, particularly in the context of dependent data. While the potential of ALE is established, and the ALE framework has been further explored in this study in order to enhance data interpretability, it is important to recognize that XAI in DM and ML is inherently exploratory. No single method uniformly suits all scenarios. The efficacy of combining techniques, both for complementary insights and ensemble approaches, presents a significant area for exploration. This concept has been demonstrated in \cite{Fisher2018AllSimultaneously}, where multiple models were utilized to generate more reliable scores. Furthermore, the adoption of frameworks that integrate various techniques aiming for more model-specific explanations has shown promise, as discussed in \cite{Li2019AForests}. We believe that the synergistic application of multiple XAI techniques and paradigms, particularly aimed at enhancing the quality of insights in educational contexts, represents a promising direction for future research.
+
+
+
+
+ 
+
+
+
+

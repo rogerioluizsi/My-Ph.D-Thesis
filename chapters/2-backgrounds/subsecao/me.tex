@@ -1,0 +1,23 @@
+\subsubsection{ME Plots and Scores}
+
+ME, or analytical derivative, was initially defined in the traditional statistical literature. The marginal term here is derived from the econometrics discipline as the "additional" effect, which has a  different mean from the rest of this thesis, where the marginal term is related to the probability distribution of an underlying feature.
+
+The ME was established as an alternative to explain the coefficients of features in non-linear models, especially those entailing interactions that obscure the direct interpretation of coefficients. These more complex models lose their direct interpretation of coefficients, meaning that interpretation requires a first understanding of the details of the specified model\cite{Leeper2021InterpretingMargins, long1997regression}. The ME is also useful to inform the variable contribution in the natural scale on Generalized Linear Models (GLM), which involve transformations of the linear predictor into other discrete outcomes, such as logistic regressions, where coefficients typically lack direct interpretability and do not align with the scale of interest.
+
+The ME effects of a variable $x_s$ are in the function of all other remaining variables $X_c$ and represent  for continuous variables the change in the probability when the $x_s$ varies in small change, as defined:
+
+\begin{equation}
+ME(X_s) = \lim_{{h \to 0}} \frac{{f(X_c|(x_s + h)) - f(X_c|x_s)}}{h}
+\label{me}
+\end{equation}
+
+In practice, $h$ is the value of $x_s$ and the ME effects can be straightforwardly plotted over $x_s$ . However, usually, summary measures are the main unit of interest, such as:
+
+\begin{itemize}
+    \item Marginal Effect at the Mean (MEM) is simply the computation of the MEs around the mean of the feature distribution. In practice, MEM is close to the AME if \(f(X)\) is not too noisy.
+\end{itemize}
+
+\begin{itemize}
+    \item ME at the Representative Value (MER) is a simpliﬁcation of MEM calculation for a value that could be an interesting operation point for the research domain. The marginal effect is calculated for each variable at a particular combination of X values. Thus, MER provides a means to understand and communicate model estimates at theoretically important combinations of feature values.
+\end{itemize}
+

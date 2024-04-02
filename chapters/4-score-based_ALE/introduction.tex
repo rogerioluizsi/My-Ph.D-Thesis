@@ -1,0 +1,35 @@
+\chapter{ALE-based score-effects size}
+\label{chapter4}
+
+This Chapter presents novel metrics to highlight the relevance of features in supervised learning models, directly addressing the RQ2. Initially, the introduction section outlines the motivation and significance of the chapter's contribution. Additionally, it delineates pertinent literature to clearly demarcate the contributions within the existing research landscape. Subsequently, the chapter defines the scores formally and presents the experimental setup for validating them. The findings are then detailed, followed by a summary section that analyzes the main results and how they answer the RQ2.
+
+
+\begin{center}
+  \fbox{
+    \parbox{0.8\textwidth}{RQ2 - How effectively can score-based explanations derived from the ALE framework report individual and isolated attribution of the features in terms of their magnitude and direction compared to existing methods?
+    }
+  }
+\end{center}
+
+\section{Introduction}
+
+While visualizations provide a more comprehensive understanding of feature effects, score-based explanations continue to be widely adopted in applied educational research \cite{SilvaFilho2023AAchievement}. These explanations are particularly beneficial for feature selection processes, interpreting models with numerous features, and \cite{Wei2015VariableReview,SilvaFilho2021InterpretingEffects} describe interactions between more than two features \cite{Apley2020VisualizingModels}
+
+In the educational domain, a standard score to interpret variable relevance is the coefﬁcients of additive models. The coefﬁcient represents the weight of each variable in the predictive function. Under inherent assumptions, the coefficients represent the extent and the direction of the role of the variable in the data-generating process. This enables educational practitioners to address questions regarding the average effect of variables within the predictive function.
+
+The extrapolation problem was extensively discussed in Chapter \ref{chap:AssALE} in the framework of feature effects. The extrapolation consists of using regions of the covariate space with little or no data and also is present in the context of score-based explanations. Specifically, within the context of PFI, the model's performance is evaluated in these data-sparse regions, which may produce scores that lack a strong link to the underlying data-generating process. Moreover, PFI often faces challenges in discerning the significance of individual features in datasets characterized by substantial inter-variable dependencies. This complexity arises because the informational content of permuted features can persist via associations with other variables \cite{Strobl2008ConditionalForests, Hooker2019UnrestrictedImportance}
+
+In the SHAP framework, the absolute average is constantly used as a signal of feature relevance \cite{Scavuzzo2022FeatureSHAP}. This strategy has also been adopted for other methods, such as PD plots \cite{Greenwell2018AMeasure} and ME 
+\cite{Long2021UsingOutcomes}. As demonstrated in the previous chapter, all these techniques also have problems when data are dependent.
+
+To address this issue, alternatives to PFI have been proposed. The principal advancement of these methods is to allow feature permutation within the conditional distribution instead of the marginal distribution.
+
+In \cite{Candes2018PanningSelection, Watson2021TestingAlgorithms}, the researchers attempt to emulate the conditional distribution by leveraging 'knockoffs'—replicas of the original features that maintain the joint distribution while being independent of the outcome variable, conditioned on the other features. Nevertheless, the intricacy of this method lies its reliance on complex task -  accurately creating knockoffs that faithfully mirror the dataset's joint distribution. Furthermore, the computational demands of this process are considerable. This computational cost also apply to PFI alternative methods that require retraining models \cite{Hooker2019UnrestrictedImportance, JingLeiMaxGSell2018Distribution-FreeRegression, Gregorutti2017CorrelationForests}.
+
+Adopting simpler and more effective strategies to constrain the permutation process and avoid extrapolation, Conditional Permutation Feature Importance (c\_PFI), as initially proposed by \cite{Strobl2008ConditionalForests} and subsequently refined in \cite{Debeer2020ConditionalRevisited}, utilizes the tree structures generated from random forest models to constrain the extrapolation problem. Similarly, \cite{Molnar2023Model-agnosticApproach} computes the Conditional Subgroup PFI (cs\_PFI) using an auxiliary decision tree to form subgroups for each feature, treating the feature of interest as the target variable. The tree splits turns the data points within leaves relatively independent with respect to other variables. The cs\_PFI is computed within leaves and subsequently aggregated to produce an overall unbiased PFI.
+
+This chapter aims to contribute to this suite of tools for assessing the robustness of score-based explanations in identify and isolate the relevance of features in supervised learning models, especially in situations where feature independence cannot be presumed. The new scores are motivated by the robustness of ALE under such conditions. The decomposition property of ALE, as outlined in Chapter \ref{chap2} is particularly relevant in scenarios where data is not independent. It aids in 1) ensuring that variables of low relevance are assigned minimal attribution, even if they are correlated with significant variables, and 2) distinguishing relevant variables regardless of their co-dependency.
+
+The new scores are extracted from the ALE framework and can be computed for any model. Akin to cs\_PFI, which is also model-agnostic, the new scores are computed across subgroups, but without the need to employing an auxiliary model to establish the subgroups. Additionally, the new scores can provide more information than traditional PFI-based scores. PFI-based techniques, which are ranking-based, focus on highlighting the relative importance of variables with respect to model performance—a perspective that does not fully align with the needs of educational practitioners who are interested in understanding the roles of features in the target variable. Typically, such an inquiry requires an examination of the relevance of features in model predictions rather than solely in performance, as has traditionally been conveyed by the coefficients of linear models.
+
+It is expected that these new scores of feature effect size will be useful in practical scenarios where data are not independent, serving as an alternative to generating insights about the relevance of features and their interactions within the supervised learning paradigm. For comparison, a series of experiments with both artificial and real-world data will demonstrate how these scores can compete with and surpass the limitations of existing scores. Using the ALE framework to produce these scores also introduces certain limitations to the interpretation of the scores, which will be further discussed.  

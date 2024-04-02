@@ -1,0 +1,10 @@
+\section{Summary}
+
+This chapter explores the differences in explanations from various methods across different data dependencies. It presents a methodology designed to accurately measure the extent to which global explanatory methods can recover the true data-generating process. It presented a comprehensive benchmarking using artificial data, which embodies different generative processes across various scenarios to assess PD, ME, SHAP, and ALE. The methodology introduces ABX, a metric that measures the extent to which explained effects deviate from the theoretical feature effects.
+
+The methodology has demonstrated that ALE surpasses other techniques in feature explanation within datasets that resemble real-world conditions—namely, scenarios where variables are correlated. Specifically, in scenarios where the data-generating function is dependent on more than one variable (in that case \(x_1\) and \(x_2\)) ALE achieves statistically superior results by closely approximating the true effects of features across their entire value range, in comparison to SHAP, ME, and PD. The experiments also show how the independence assumptions of explainers such as PD and SHAP can compromise the explanations of highly complex models like NNs, even in hypothetical scenarios where the data-generating function is truly independent.
+
+The ABX metric, introduced in this chapter, provides a quantitative measure to quantify discrepancies in global feature effect explanations and establishes a foundation for future benchmarking efforts in the field of XAI.
+
+This study highlights the importance of selecting the appropriate XAI technique based on the specific characteristics of the dataset in question. Specifically, ALE demonstrated paramount robustness in explaining feature effects when data is not independent. Therefore, providing empirical evidence that the techniques that either allow for extrapolation or do not use interventions can diminish the practical utility of their explanations. 
+

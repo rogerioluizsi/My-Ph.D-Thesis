@@ -1,0 +1,47 @@
+\section{Methods}
+
+This section present the methods used tom compare ALE with existing techniques to report global features explanations addressing RQ1. Initially, we introduce a novel metric designed to quantify the deviation of a technique's explanations from the actual effects when elucidating a feature within a dataset characterized by a known data-generating process. As benchmarks, we select the most widely utilized methods identified in the literature review presented in Section 2, specifically: Marginal Effects (ME), Partial Dependence (PD) plots, and SHapley Additive exPlanations (SHAP). Unlike ALE, ME, and PD, which provide global explanations, SHAP is primarily focused on local interpretations. However, SHAP explanations can be aggregated in various ways to derive global insights \cite{Lundberg2020FromTrees.}. For comparison purposes, a version comparable to the others, termed Grid\_SHAP, was defined. The remaining techniques were implemented in accordance with their respective formal definitions (see Section \ref{chap2_shap}) without centering them around the mean.
+
+
+\subsection{An alternative for global SHAP}
+
+The Grid\_SHAP was defined as a partial-dependence-based alternative to SHAP for straightforward comparison with other techniques. Grid\_SHAP aggregates the SHAP values (SVs) within equally spaced intervals in terms of the data distribution. While the original SVs are centered around the mean, allowing the interpretation of the effects of a feature on a certain prediction for a specific instance from the base value, Grid\_SHAP is uncentered, with the definition as follows:
+
+\begin{equation}
+ V = \phi_0 + \phi_i(x) + E[\phi_i(x)]
+\label{shapley_1}
+\end{equation}
+
+where \(V\) is the uncentered SVs, $x_i$ is the $i$ variable of the dataset $X$, $\phi_i(x)$ the originally computed SVs for the feature $x_i$, $\phi_0$ is the expected model output (baseline effect).  $\phi_adj$. And:
+
+\begin{equation}
+\bar{V}_{i}(q) = \frac{1}{|Q_{x_i}(q)|} \sum_{x \in Q_{x_i}(q)} V_i(x)
+\label{gridShap}
+\end{equation}
+
+where, \(\bar{V}_{i}(q)\) represents the calculated average Shapley value for feature \(i\) within quantile \(q\). The expression \(|Q_{x_i}(q)|\) indicates the size of quantile \(q\) for feature \(i\), reflecting the number of data instances it comprises. 
+
+The \(V_i(x)\) were computed using the \textit{FastShap} package \footnote{https://cran.r-project.org/web/packages/fastshap/index.html}, a fast version of SHAP that uses monte carlo simulation to approximate SVs. This approach greatly facilitated the experimentation due to the high computational cost of computing the exact SVs in a model-agnostic manner. 
+
+\subsection{Absolute difference between Explanations - ABX}
+
+Different from previous works, which qualitatively compare the robustness of global feature effects techniques, we take advantage of the theoretical effects of variables in synthetic data and compute the Absolute difference Between-Explanations(ABX). The ABX is motivated due to the need for a measure that captures the difference in the actual feature effects and the computed explanations across all feature ranges. So, whether an underlying explanation technique is robust in some parts of the data but fails drastically in others, ABX would allow a fair comparison with others, which comes close during the whole feature range. ABX measures the absolute value of the area between the baseline explanation (theoretical) and the explained effects based on data without respect if the explainer overestimates or underestimates the feature effects. Formally, ABX is defined as:
+
+\begin{equation}
+ABX = \int_{min}^{max} |\phi(x) - \hat{\phi}(x)| dx
+\label{abx}
+\end{equation}
+
+Visually and geometrically, the ABX statistic has a straightforward interpretation: it represents the absolute summation of the areas between the two curves over the feature explanation, as shown in Figure \ref{fig:area_example}.  Lower values of ABX signify a more robust technique, with zero being the minimum possible value, occurring when both functions completely overlap over the entire interval.
+
+\begin{figure}[ht!]
+\centering
+\caption{\textmd{A explanation plot which shows the theoretical true effects and the explained by a model-agnostic technique.  The shaded regions between the two curves represents the ABX statistic}}
+\label{fig:area_example}
+\fcolorbox{gray}{white}{\includegraphics[width=0.7\textwidth]{images/extrapolation/area_example.png}}
+\par\medskip\ABNTEXfontereduzida\selectfont%\textbf{Fonte:Elaborado pelo autor}  
+\par\medskip
+\end{figure}
+
+
+\input{chapters/3-ALE/subsecao/experiments}

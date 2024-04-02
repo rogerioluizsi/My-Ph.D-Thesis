@@ -1,0 +1,19 @@
+\subsection{Experimental Setup}
+
+Artificial data was used to provide a dataset where the true variable effects are known. Even in such a scenario, it is not guaranteed that the fitted function can recover the data-generating process, as discussed earlier in Section  \ref{xai_can_fail_but_is_usable}. To simplify the process for the predictive functions, simple scenarios were simulated. Specifically, four different datasets were created based on: $y^{i} = f(X^{i}) = X_{1}^{i} \cdot X_{2}^{i} + \epsilon_i$, where $\epsilon_i \sim N(0, 0.01)$. The variables $X_{1}$ and $X_{2}$ are dependent from the same uniform distribution $N(0,1)$ with the addition of a stochastic noise $N(0, 0.5)$. 
+
+\begin{itemize}
+    \item In the \textit{independent} scenario $y$ depends linearly only of $X_{1}$ and $f(X) = X_{1} + \epsilon$
+    \item In the \textit{dependent linear scenario} $y$ depends linearly of both $X_{1}$ and $X_{2}$ being $f(X) = X_{1} + X_{2} \epsilon$
+    \item In the \textit{first dependent non-linear} scenario $y$ depends linearly of $X_{1}$ and non-linearly of $X_{2}$ being  $f(X) = X_{1} + X_{2}^2 \epsilon$
+    \item In the \textit{second dependent non-linear} scenario a more complex function was defined, and $y$ depends
+    .linearly on $X_{1}$ and hold a non-linear cubic polynomial relationship with $X_{2}$ being  $y = x_1 + (x_2 - 0.9 x_2^3) + \epsilon$
+\end{itemize}
+
+All experiments were conducted within the R programming environment, utilizing a 30-Monte Carlo simulation framework to ensure robust statistical analysis. As discussed in Chapter \ref{chap2}, one of the primary models selected for data fitting in EDM is the Random Forest (RF), a choice motivated by its widespread acceptance and proven effectiveness in EDM tasks. In addition to RF, we explored another algorithmic class often used in EDM by incorporating a Neural Network (NN) model. Unlike the RF model, which is characterized by piecewise constant functions potentially leading to more noticeable changes in model output with variations in input variables, the NN model is based on differentiable functions, generally resulting in smoother transitions of output as input variables change. This contrast introduces greater diversity into our experimental design, allowing for a more comprehensive evaluation of post-hoc explanation techniques. 
+
+The NN was employed from the \textit{nnet} package\footnote{\url{https://cran.r-project.org/web/packages/nnet/index.html}}, and the RF\footnote{\url{https://cran.r-project.org/web/packages/randomForest/index.html}} from the \textit{randomForest} package. For each scenario, the number of sampled data points was varied with $N \in {200,500,1000}$. The parameters for the NN algorithm—comprising ten nodes in the single hidden layer, a linear output activation function, and a regularization parameter of 0.0001—were determined to be approximately optimal through multiple iterations of 5-fold cross-validation for the first data scenario. The RF algorithm was executed with default parameters.
+
+To calculate the ABX a numerical approximation was used. The approximation is based on the Trapezoidal Rule, implemented through the \textit{pracma}\footnote{\url{https://cran.r-project.org/web/packages/pracma/index.html}} package in R. This approach involves linearly interpolating between data points to form an approximate representation of the curve. The area under this curve is then estimated by dividing it into trapezoidal segments and summing their respective areas. 
+
+Across all synthetic data scenarios, the average ABX from the 30-Monte Carlo process was adopted as the final measure. To investigate the influence of the number of quantiles on the results, metrics were computed by dividing the data into quantiles with \(k=10\) and \(k=50\), where \(k\) represents the number of equally distributed parts.

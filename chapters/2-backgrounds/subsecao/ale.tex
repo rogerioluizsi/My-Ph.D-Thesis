@@ -1,0 +1,36 @@
+\subsubsection{ALE plots}
+
+The ALE was established as an additional alternative to illustrate the feature effects. Distinct from prior methods, ALE focuses on variations in predictions rather than the predictions themselves, thereby isolating individual feature effects. Also, ALE is computed by parts of the data in an attempt to keep adherent to the data relationships without extrapolating. 
+
+In the ALE framework, intervals are theoretically defined as in ME, using derivatives, but in practice, ALE employs a grid \(Z\) based on quantiles of the feature of interest $X_s$ .  This process involves computing the effect of $X_s$ separately for each quantile $z$ intervening on $X_s$ twice: assuming the lower and upper quantile limits, while keeping all other variables, $x_c$, constant. The essence of ALE lies in adjusting $x_s$ for all observations between these two bounds and calculating the change in the prediction function. This method seeks to capture the local effects (LE) of $x_s$ within the confines of each quantile, effectively isolating its influence by comparing the outcomes when data interventions are applied at the quantile's lower and upper limits.
+
+Assuming data independence and a linear effect of $X_s$ within the quantile interval, the average differences in the predictions between the maximum and minimum interventions represent the isolated local effect of $X_s$, which is computed as:
+
+\begin{equation}
+\begin{aligned}
+LE({X_s, z}) = \frac{1}{n}\sum_{i=1}^{n} f(x_s = x_{\text{max(z)}}, X_c) - f(x_s = x_{\text{min(z)}}, X_c)
+\end{aligned}
+\label{accAle}
+\end{equation}
+
+
+For visualization, this LE is subsequently accumulated over the grid $Z$. Theoretically, this accumulation is accomplished by integrating the expectations over intervals defined by the derivatives of the variable of interest. In practice, however, it can be estimated via summation across grid $Z$ as per Equation \ref{accAle}. Notably, this equation is also centered, ensuring that the average of $ALE(x_s)$ is zero with respect to the marginal distribution of $X_s$. 
+\begin{equation}
+\begin{aligned}
+ALE(x_s) &= \sum_{{z \in Z, z}} LE(x_s, z) \\
+&= ALE(x_s,z) - \frac{1}{n}\sum_{i=1}^{n} LE(x_s,z)
+\end{aligned}
+\label{centerAle}
+\end{equation}
+
+Estimating interaction effects requires a modification to the equations. In the case of two interactions, the intervals in \ref{accAle} have to change to rectangular regions. Additionally, in \ref{centerAle}, second-order ALE effects require double-centering concerning both variables involved in the interaction (see details in \cite{Apley2020VisualizingModels}). Importantly, ALE is not inherently suitable for analyzing categorical variables that lack ordinality.
+
+\subsection{ALE Decomposition}
+
+In linear models, the predictive function is a sum of the components that can be treated individually, the intercept, and the weight of each feature included in the function (\ref{lm}). The same can be applied to any high-dimensional function that can be decomposed into a sum of components of increasing dimensionality. In the following equation from \cite{Molnar2019QuantifyingInterpretability}, the predictive function is expressed as a sum of the intercept, individual (first order) feature effects, and interactions (second and higher order) effects.
+
+\begin{eqnarray}\label{eqn:decomp} f(x)  = &\overbrace{f_0}^\text{Intercept} + \overbrace{\sum_{j=1}^p f_j(x_j)}^\text{1st order effects} + \overbrace{\sum_{j<k}^p f_{jk}(x_j, x_k)}^\text{2nd order effects} + \ldots + \overbrace{f_{1,\ldots,p}(x_1, \ldots, x_p)}^\text{p-th order effect}
+%\\ =  & \sum_{S \subseteq \{1,\ldots,p\}} f_S(x_S)
+\end{eqnarray}
+
+Unlike other techniques, ALE allows the function decomposition as unique components \cite{Apley2020VisualizingModels}. The ALE components are computed conditional on the values of intervals and over the marginal distribution of all other features. This orthogonality-like property- called pseudo-orthogonality by the ALE author, ensures that the main effects can indicate how each feature affects the prediction, independent of the values of the other feature. The interaction effect indicates the joint effect of the features, not considering the main effects of related features. 

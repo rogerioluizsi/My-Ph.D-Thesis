@@ -1,0 +1,21 @@
+\section{Objective and contributions}
+\label{objetivos}
+
+Addressing these inquiries, the main objective of this thesis is to assess ALE as a reliable alternative to explain the individual and isolated effects of features and their interactions in the supervised learning paradigm. Specifically, it focuses on ensuring robustness in the presence of dependent data, aiding in extracting knowledge from educational datasets.
+
+
+This work aims to bridge this gap by not only critically evaluating the limitations of existing explanations but also introducing novelties that allow a more trustworthy adoption of ML in EDM. Specifically, the following research questions address the core objectives of the study.
+
+\textbf{RQ1} - How do widely used feature effects techniques compare with ALE in accurately identifying true feature effects considering different inter-data dependencies? 
+
+By responding to \textbf{RQ1}, the thesis aims to raise empirical evidence about the robustness of ALE in recovering the role of features in supervised models under correlated data. While the properties of ALE have been previously delineated, primarily through mathematical and qualitative frameworks \cite{Apley2020VisualizingModels, molnar2019}, a notable gap remains in empirical quantitative analysis, particularly in evaluating how ALE strategies differ in explanations compared to commonly used techniques such as PD and SHAP. This gap not only underscores the need for a thorough comparative analysis of ALE with established methods, as suggested in \cite{Molnar2022GeneralModels}, but also highlights its potential for enhancing explanations in the field of EDM.
+
+
+\textbf{RQ2} - How effectively can score-based explanations derived from the ALE framework report individual and isolated attribution of the features in terms of their magnitude and direction compared to existing methods?
+
+Addressing \textbf{RQ2}, this thesis aims to fill a gap in the area of score-based explanations, which is the most prevalent approach in EDM.  By adopting the ALE framework, this work introduces new metrics that surpass the limitations of current methods, particularly in the context of correlated data. This advancement will facilitate knowledge discovery in educational data using supervised machine learning.  
+
+These research questions will be answered sequentially, aiming to provide  \textbf{two main contributions}: \textbf{Empirical evidence of ALE robustness compared with currently used methods in EDM}. The first main contribution of this thesis is the evaluation of ALE against other widely used techniques in EDM, specifically in scenarios involving dependent data. This contribution fulfills the need for a thorough analysis of different strategies for managing data dependencies in the context of post-hoc global feature effects. Furthermore, it enhances the XAI literature by introducing a novel methodology for benchmarking feature effects. The experimental design enables the assessment of various feature effect techniques' robustness in accurately representing the true data-generating process. The experiment was conducted using synthetic data, facilitating a comparison between the actual data-generating process and the results produced by the explanation techniques.
+
+\textbf{A new set of score-based metrics of feature effects size.} The second major contribution of this thesis is a novel set of metrics developed to quantify feature effects size. Building on prior research, which introduced scores summarizing graph-based techniques, \cite{long1997regression, Greenwell2018AMeasure, Lee2023SHAPForecasting} this work introduces four innovative metrics inspired by the ALE framework. Each metric is designed to provide unique insights into the significance of features, offering diverse perspectives on their importance. These metrics are model-agnostic, suitable for a range of model types, and adept at revealing the extent and direction of feature effects, making them comparable to traditional methods used in educational analysis. The effectiveness of these metrics has been rigorously tested, demonstrating their capacity to identify key variables and to isolate the effects of features, even among highly correlated variables. This validation was conducted using both synthetic and real-world datasets.
+

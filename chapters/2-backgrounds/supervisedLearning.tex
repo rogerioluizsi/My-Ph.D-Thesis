@@ -1,0 +1,36 @@
+\section{Supervised Learning }
+
+Supervised learning is a subfield of ML in which a model is trained on a labeled dataset to perform predictive tasks in a unseen dataset. The objective is to find a function \( f: \mathcal{X} \rightarrow \mathcal{Y} \), where \( \mathcal{X} \) is the feature space and \( \mathcal{Y} \) is the output space, such that the function approximates the underlying mapping from input features to outputs as closely as possible.
+
+Specifically, given a labeled dataset \( \mathcal{D} = \{ (x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n) \} \), where \( x_i \in \mathcal{X} \) and \( y_i \in \mathcal{Y} \), the supervised learning algorithm aims to minimize a loss function \( \mathcal{L}(f(x), y) \) over \( \mathcal{D} \), defined as:
+
+\[
+\mathcal{L}(f) = \sum_{i=1}^{n} \mathcal{L}(f(x_i), y_i)
+\]
+
+Where, \( \mathcal{L} \) measures the discrepancy between the predicted output \( f(x) \) and the true label \( y \). To enhance the model's generalization capabilities, $f$ is evaluated on an statistically independent dataset, thereby mitigating the risk of optimistic empirical performance estimation.
+
+\subsection{Contrast with traditional statistical methods}
+
+Despite the models used in traditional statistics can be seen as one of the tools available in ML \cite{TrevorHastieRobertTibshirani2014AssessmentSelection}, there is a fundamental difference in how they estimate the weight of functions. To elucidate the distinctions between supervised learning and traditional statistical models, lets consider a linear model within the supervised learning framework, defined as:
+
+\begin{equation}
+y = \beta_0 + \beta_1 x + \epsilon
+\label{lm}
+\end{equation}
+
+In contrast to the Ordinary Least Squares (OLS) approach prevalent in traditional statistical analyses, the objective in the context of supervised learning is also to optimize the coefficients $\beta$ in a manner that minimizes out-of-sample error. Specifically, OLS optimizes \( \beta \) by minimizing only in-sample error, without explicit consideration for out-of-sample generalizability. The key divergence stems from supervised learning's strategic focus on balancing the bias-variance trade-off, thereby allowing a certain level of bias (in-sample error) to mitigate excessive variance (out-of-sample error) \cite{Athey2019MachineAbout}.
+
+The objective function for linear regression under  supervised learning paradigm can be formalized as:
+
+\begin{equation}
+\sum_{i=1}^{n} (y_i - f(x_i))^2 + \lambda R(f)
+\end{equation}
+
+In this equation, \( (y_i - f(x_i))^2 \), represents the in-sample error, while the regularization term \( R(f) \) acts to prevent overfitting by constraining the model's complexity, thereby reducing the out-of-sample error. The chosen regularization parameter \( \lambda \) plays a crucial role in modulating the extent of this constraint, thereby influencing the model's generalization performance \cite{TrevorHastieRobertTibshirani2014AssessmentSelection}.
+
+
+
+
+
+

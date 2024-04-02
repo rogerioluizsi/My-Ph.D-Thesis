@@ -1,0 +1,59 @@
+\section{Methods}
+\label{sec: NewMetricsExp}
+
+This section details the methodology employed to assess the efficacy of the proposed metrics in addressing RQ2. The evaluation was defined with two primary objectives: 1) to verify whether variables of low relevance are attributed minimal significance, even when they are highly correlated with relevant variables, and 2) to ascertain if the proposed metrics can effectively isolate the effects of relevant variables that are also correlated with each other.
+
+To systematically achieve these objectives, the evaluation process was structured into two phases. First, synthetic data was simulated with the desired dependencies of the features and a qualitative comparison is then carried out to examine how various methods emphasize variables in different scenarios. Following this, evaluation metrics are introduced for a quantitative analysis. Using simulated data allows for a more precise demonstration of the metrics' behavior than analyzing a real dataset, where additional interdependencies among features might skew the results. Although it is not possible to ensure that the fitted model will recover exactly the simulated data-generating process, it is expected to come close by keeping the setup simple and focusing on a small set of variables. Additionally, the same model will be explained for different techniques, which will allow a clear comparison of differences in the technique's behavior even if the models fit data differently from the expected.
+
+In the second phase, the proposed metrics are evaluated using two publicly accessible real-world data sets from the medical and educational domains. The first data set exhibits high interdependence among features with numerous variable pairs demonstrating a Pearson correlation coefficient exceeding 0.8. The second data set pertains to the educational domain, which is the primary focus of this thesis. For this dataset, domain-specific knowledge is leveraged to elucidate disparities between highlighted feature contributions. 
+
+The baseline metrics employed for comparison include  MDI from tree-based models, the model-agnostic version of PFI, the Average SHAP, and the conditional version of PFI (cs\_PFI). The MDI scores were directly extracted using the scikit-learn library \cite{scikit-learn}. Average SHAP were computed via the TreeExplainer package \footnote{\url{https://shap.readthedocs.io/en/latest/example\_notebooks/tabular\_examples/tree\_based_models/UnderstandingTreeSHAPforSimpleModels.html}}. The TreeExlainer (TreeSHAP)  was proposed by \cite{Lundberg2020FromTrees.} and is confined to certain tree-based algorithms. From the same author of the SHAP, The TreeSHAP offers computational efficiency over the original SHAP formulation and is also more robust to the extrapolation issue making it a better baseline alternative than the original SHAP. The PFI was implemented as defined in \cite{Fisher2018AllSimultaneously}, utilizing mean squared error for regression and accuracy for classification as the performance metric. The cs\_PFI was implemented in accordance with \cite{Molnar2023Model-agnosticApproach}. The cs\_PFI approach requires the utilization of an auxiliary decision tree to partition the feature space prior to feature permutation. The tree has a maximum depth of 2 and the minimum number of observations in each leaf as 10\% of the dataset. For both PFI and cs\_PFI, the random feature permutation was executed five times, and the average was adopted as the final score.
+
+In addressing the constraints associated with MDI and TreeSHAP, which are solely applicable to tree-based algorithms, the RF algorithm was chosen. The RF is prevalent in EDM \cite{Martinez-Abad2020EducationalAssessment} and has also demonstrated optimal performance in many tasks using tabular data \cite{Grinsztajn2022WhyData}. The ALE-based score AUA was chosen for qualitative benchmarking, as it offers a more intuitive measure and aligns closely with the interpretation needs of educational practitioners interested in the main effects of variables on predictions. For the quantitative analysis, the normalized AAR was employed due to its stronger adherence to other ranking-based techniques. Regarding SHAP, the common average was utilized in the qualitative analysis, and the absolute average SHAP for the quantitative analysis.    
+
+\subsection{Evaluation Metrics}
+
+To address RQ2, the primary objective is to define metrics that can isolate the effects of individual variables in dependent data. It is essential to ensure that irrelevant variables are not inaccurately considered important due to their correlation with significant variables. For this purpose, the metric \textit{PropTrueVar} is introduced. It calculates the proportion of the total relevance attributed to all variables that is assigned to the irrelevant variables. Technically \textit{PropTrueVar} is defined by:
+
+
+\begin{equation}
+\label{eq:lm+inter}
+PropTrueVar = 1 - \frac{\text{score\_important\_variable}}{\sum(\text{all\_scores})}
+\end{equation}
+
+
+Additionally, not separating the effects of different features can lead to incorrect conclusions as it cannot be possible to identify from which variable the effects come, particularly when several correlated variables similarly affect the target variable. To assess such cases, the \textit{EquiTrueVars} metric is defined. It measures the fairness in attributing importance to correlated variables that are equally relevant to the target variable. Technically \textit{EquiTrueVars} is defined by:
+
+\begin{equation}
+\label{eq:lm+inter}
+EquiTrueVars = 1 - \sigma(\text{score\_important\_variables)}
+\end{equation}
+
+
+Lastly, the 'EquiPropTrueVars' metric is introduced to measure both aspects. It evaluates the combined property by first assessing the attribution given to important variables (using \textit{EquiTrueVars}) and then penalizing methods that tend to overemphasize irrelevant variables (based on \textit{PropTrueVar}).
+
+\begin{equation}
+\label{eq:lm+inter}
+EquiPropTrueVars = EquiTrueVars - (PropTrueVar -1)
+\end{equation}
+
+
+\subsection{Assessing scores for feature selection}
+
+Feature selection stands as a critical aspect of ML, garnering increased focus with the advent of high-dimensional datasets from diverse fields. While not directly tied to the central research questions of this thesis, the relevance of feature selection remains significant in ML, particularly in the context of enhancing model performance while reducing model complexity. This section is dedicated to exploring how ALE-based scores can offer a viable alternative in this direction. The focus here shifts from detailing the relationship between features and the target variable to evaluating the contribution of features to model performance. The AAR, which measures the total effect range from minimum to maximum, emerges as a potential indicator of feature importance in this regard.
+
+Given that an exhaustive comparison of feature selection methods falls outside the scope of this thesis, for the sake of simplicity, this study will narrow its focus to AAR and MDI from tree-based models, particularly due to MDI's widespread application in feature selection tasks. Additionally, evaluating the method's impact on the performance and complexity of RF models introduces some bias in favor of MDI. This inherent bias arises because MDI is computed as part of the training process of the Random Forest model, which is also used to fit the data. Therefore, if AAR demonstrates comparable performance to MDI in this context, it would be a substantial indication of AAR's effectiveness as a feature selection tool. The MDI was extracted from the RandomForest model of the Sci-kit learn library \footnote{https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html}. 
+
+The initial experiment utilizes another open-source UCI educational dataset \cite{RealinhoValentim2021PredictSuccess} with 36 independent variables to illustrate the divergent approaches of MDI and AAR in feature reduction. Initially, irrelevant variables (close to zero, "\(< 0.0001\)") are excluded to evaluate model performance. Subsequently, the model's efficacy is evaluated using the top 10 features as identified by both MDI and AAR metrics. These metrics are derived from the same RF algorithm applied to a subset (30\%) of the dataset, while the remaining portion (70\%) is used to assess model performance in predicting student dropout (enrolled or graduated). The AAR and MDI values were normalized such that their sum equals one. This normalization ensures a standard scale for comparison. 
+
+To illustrate feature selection in high-dimensional settings when the number of features is large (\(p\)) relative to the number of observations (\(n\)), this study used two datasets from OpenML \cite{Vanschoren2014OpenML}. Specifically, dataset id=312 with \(n\)=2407 and \(p\) = 299 and dataset id=1485 with \(n\)= 2600, \(p\)= 500), both previously employed in feature selection research. Here, varying thresholds of feature irrelevance are analyzed concerning both model complexity (number of features) and performance.
+
+\input{chapters/4-score-based_ALE/subsecoes/syntethicData}
+\input{chapters/4-score-based_ALE/subsecoes/realWorldData}
+
+
+\subsection{Experimental Setup}
+
+In the first phase of the experiments, which involved synthetic data,  regression and classification functions from Scenarios 1 to 3 were tested and evaluated qualitatively. For the classification, all \(Y>0\) was set to 1, otherwise 0. From Scenarios 4 to 6 the entire dataset was used for model fitting, and the defined evaluation metrics were extracted across the same 30-Monte Carlo replicates. 
+
+For both datasets, the algorithms were applied to a 5-fold cross-validation setting in a binary classification task. Thus, both algorithms were applied to the same folds with scikit-learn default parameters, and the mean was adopted as a feature contribution for each metric. It's important to note that all metrics were computed using identical fold partitions, ensuring consistency in the evaluation process.
